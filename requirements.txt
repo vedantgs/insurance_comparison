@@ -1,0 +1,12 @@
+streamlit
+langchain
+langchain_community
+langchain_unstructured
+langchain-groq
+google-generativeai
+langchain-google-genai
+faiss-cpu 
+python-dotenv
+unstructured[pdf]
+PyPDF2
+
