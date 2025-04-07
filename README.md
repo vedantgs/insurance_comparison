@@ -1,7 +1,7 @@
 # Multi-Agent Experimentation Project
 
 ## Overview
-This project contains experimental code for multi-agent systems using various language models and frameworks.
+This project focuses on an effective retrieval augmented generation pipeline focused on performing comparison between isurance plans
 
 ## Requirements
 The project requires several Python libraries:
