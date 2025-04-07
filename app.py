@@ -8,12 +8,15 @@ from langchain.chains import RetrievalQA
 from langchain_unstructured import UnstructuredLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Streamlit UI
 st.title("Insurance Plan Comparator")
 
-# Add API key input with password mask
-openai_api_key = st.text_input("Enter your OpenAI API Key:", type="password", help="Your API key will not be stored")
+# Retrieve API key from environment variable
+openai_api_key = os.environ.get("OPENAI_API_KEY")
+print("OpenAI API Key:", openai_api_key)  # Debugging line
 
 uploaded_file_a = st.file_uploader("Upload Insurance Plan A (PDF)", type=["pdf"])
 uploaded_file_b = st.file_uploader("Upload Insurance Plan B (PDF)", type=["pdf"])
@@ -44,10 +47,8 @@ if uploaded_file_a and uploaded_file_b and openai_api_key:
     docs_a = loader_a.load()
     docs_b = loader_b.load()
 
-    # Embeddings model - now using the API key from frontend
-    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    embeddings = OpenAIEmbeddings(model = "text-embedding-3-small", openai_api_key=openai_api_key)
 
-    # Convert metadata to strings
     for doc in docs_a:
         for md in doc.metadata:
             doc.metadata[md] = str(doc.metadata[md])
@@ -66,7 +67,6 @@ if uploaded_file_a and uploaded_file_b and openai_api_key:
         answer_for_plan_b: str = Field(description="The response to the user query for plan B")
         comparative_results: str = Field(description="Comparison between plan A and plan B")
 
-    # LLM setup - now using the API key from frontend
     llm = ChatOpenAI(model_name="gpt-4o-mini", max_tokens=2500, openai_api_key=openai_api_key)
     system_prompt = ChatPromptTemplate.from_messages([
         ("system", "You are an AI assistant tasked with comparing two insurance plans based on retrieved information. Provide detailed responses for each plan and a comparative analysis for a given user question. Respond to the query in a detailed format. Do not hallucinate information in case there is no data relevant to the user query."),
@@ -114,6 +114,6 @@ if uploaded_file_a and uploaded_file_b and openai_api_key:
             st.error("Please enter a question.")
 else:
     if not openai_api_key and (uploaded_file_a or uploaded_file_b):
-        st.warning("Please enter your OpenAI API key to proceed.")
+        st.warning("Please set your OpenAI API key in the environment variables to proceed.")
     elif not uploaded_file_a or not uploaded_file_b:
         st.info("Please upload both insurance plans to compare them.")

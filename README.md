@@ -27,25 +27,14 @@ streamlit run app.py
 - Text chunking and preprocessing for optimal embedding
 - Semantic search capabilities over document corpus
 
-### Language Model Integration
-- Multi-model support with Groq and Google Generative AI models
-- Model switching capability for comparing responses
-- Optimized prompting strategies for different use cases
-
 ### Vector Storage and Retrieval
 - FAISS-based vector database for efficient similarity search
 - Document retrieval based on semantic relevance
-- Customizable retrieval parameters (k-nearest neighbors, similarity thresholds)
 
 ### Interactive User Interface
 - Streamlit-based web interface for easy interaction
 - Real-time query processing and response generation
 - Document upload and management capabilities
-
-### Multi-Agent Architecture
-- Agent collaboration frameworks for complex tasks
-- Role-based agent specialization
-- Memory and context management between agent interactions
 
 ## Project Structure
 - `requirements.txt` - Contains all required Python dependencies
