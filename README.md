@@ -1,5 +1,3 @@
-# Multi-Agent Experimentation Project
-
 ## Overview
 This project focuses on an effective retrieval augmented generation pipeline focused on performing comparison between isurance plans
 
